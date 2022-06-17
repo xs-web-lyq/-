@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function King(){
+            this.royaltyName = "liuyongqi"
+            // this引用King的实例
+            setTimeout(()=>{console.log(this.royaltyName);})
+        }
+
+        function Queen(){
+            this.royaltyName = "liuyongqi"
+            // this引用Window对象
+            setTimeout(function(){console.log(this.royaltyName);})
+        }
+        new King();
+        new Queen()
+        // Queen()
+    </script>
+</body>
+</html>

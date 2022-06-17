@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        window.identity = 'The Window'
+        let object = {
+            identity :'My Object',
+            getIdentity:function(){
+                return this.identity
+            }
+        }
+        // 按照规范object.getIdentity()和(object.getIdentity)()是相等的
+        console.log( object.getIdentity());//My Object
+        console.log((object.getIdentity)());//My Object
+        // (object.getIdentity = object.getIdentity)() 函数赋值之后就不在关联任何对象
+        console.log( (object.getIdentity = object.getIdentity)());//The Window
+
+       
+    </script>
+</body>
+</html>

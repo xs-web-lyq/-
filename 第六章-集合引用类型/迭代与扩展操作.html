@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Array() 所有定型数组 Map Set , 定义里默认迭代器，都支持顺序迭代，可以传入for of 循环
+        // 意味着所有这些类型都兼容扩展操作符，扩展操作符在对可迭代对象浅复制时特别有用
+        let arr1 = [1,2,3]
+        let arr2 = [...arr1]
+        console.log(arr1);
+        console.log(arr1 === arr2);
+        console.log(arr2);
+
+        // 对于期待可迭代对象的构造函数，只要传入一个迭代对象就可以实现复制
+        let map1 = new Map([[1,2],[3,4]])
+        let map2 = new Map(map1);
+        console.log(map2);
+        console.log(map1 === map2); //false
+
+        // 浅复制意味着指挥复制对象的引用
+        let arr3 = [{}]
+        let arr4 = [...arr3]
+        arr3[0].foo = "bar"
+        console.log(arr4[0]);//{foo: 'bar'}
+        console.log(arr3[0] === arr4[0]); //true
+
+
+
+        // from()  of() ,
+        let arr = [1,2,3]
+        // 把数组复制到定型函数
+        let typedArr1 = Int16Array.of(...arr)
+        let typedArr2 = Int16Array.from(arr)
+        console.log(typedArr1)
+        console.log(typedArr2)
+
+        // 把数组复制到映射
+        let map = new Map(arr.map((x) => [x,'val'+x]))
+        console.log(map);//{1 => 'val1', 2 => 'val2', 3 => 'val3'}
+
+        // 把数组复制到集合
+        let set = new Set(typedArr2)
+        console.log(set) //Set(3) {1, 2, 3}
+    </script>
+</body>
+</html>
