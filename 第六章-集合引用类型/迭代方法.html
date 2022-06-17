@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let numbers = [1,2,3,4,5,4,3,2,1];
+        let everyResult = numbers.every((item,index,array)=>item>2)
+        console.log(everyResult);
+        let someResult = numbers.some((item,index,array)=>item>2)
+        console.log(someResult)
+        let filtersResult = numbers.filter((item,index,array)=>{
+            return item > 2
+        })
+        console.log(filtersResult)
+        let mapResult = numbers.map((item,index,array)=>{
+            return item*2
+        })
+        console.log(mapResult)
+
+        let forEachResult = []
+        numbers.forEach((item,index,array)=>{
+            forEachResult.push(item*5)
+        })
+        console.log(forEachResult)
+
+        // 归并方法： reduce(), reduceRight(),有两个参数，第一个参数为归并函数，第二个参数为开始索引值，
+        // 归并函数有四个参数，第一个参数为上一次归并返回值，第二个参数为当前元素，第三个参数为当前元素索引，第四个参数为数组本身
+        // 归并开始从第二项开始，prev为第一个元素，cur为当前元素，
+
+        let values = [1,2,3,4,5]
+        // let sum = values.reduce((prev,cur,index,array)=>{
+        //     return prev + cur;
+        // })
+
+        let sum = values.reduceRight((prev,cur,index,array)=>{
+            return prev + cur;
+        }) //15
+        console.log(sum)//15
+
+        // reduceRight()反向进行归并
+
+
+
+
+    </script>
+</body>
+</html>

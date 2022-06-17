@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        console.log(null == undefined);
+
+        let massage = null
+        let age;
+
+        if(massage){
+            console.log('massage1');
+        }
+        if(!massage){
+            console.log('massage2');
+        }
+        if(age){
+            console.log('age1');
+        }
+        if(!age){
+            console.log('age2');
+            console.log(typeof a); //undefined
+        }
+
+
+        console.log(Boolean(undefined) == false); //true
+        console.log(Boolean(null) == false); //true
+    </script>
+</body>
+</html>

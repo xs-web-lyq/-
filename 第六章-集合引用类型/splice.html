@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let colors = ["red","green","blue"];
+        // 返回被删除的项
+        let removed = colors.splice(0,1)
+        // alert(colors);
+        // alert(removed)
+
+        removed = colors.splice(1,0,"yellow","orange")
+        // alert(colors);
+        // alert(removed)
+
+        removed = colors.splice(1,1,"red","purple");
+        // alert(colors);
+        // alert(removed)
+
+        let str = "red"
+        str.split('')
+        console.log(str)
+
+
+        // 搜索和位置方法
+        // 1.严格相等 indexOf() 和 lastIndexOf() , includes() 方法在匹配时必须为严格相等
+        // 第一个参数为，要搜索的元素，第二个参数为搜索的起始位置
+
+        let person = {name:"liu"}
+        let people = [{name:"liu"}]
+        let moorePeople = [person]
+
+        // alert(people.indexOf(person)) //-1
+        // alert(moorePeople.indexOf(person)) //0
+        alert(people.includes(person))//false
+        alert(moorePeople.includes(person)) //true
+
+
+
+        // 2.断言式函数
+        // 断言式函数接收3个参数： 元素，索引和数组本身。元素为当前数组搜索的元素，索引为当前元素的索引，数组就是正在搜索的数组，返回真值表示匹配
+        // find() 和 findIndex();
+        const people1 = [
+            {
+                name: "liu",
+                age:21
+            },
+            {
+                name:"yong",
+                age:30
+            }
+        ]
+        console.log(people1.find((element,index,array) => element.age<28)); //{name: 'liu', age: 21}
+        console.log(people1.findIndex((element,index,array) => element.age>28)); //1
+
+        // 找到匹配项之后，永远不会检查数组的最后一个元素
+        const events = [2,4,6]
+        events.find((element,index,array)=>{
+            console.log(element);
+            console.log(index);
+            console.log(array);
+            return element === 4;
+        })
+        
+    </script>
+</body>
+</html>

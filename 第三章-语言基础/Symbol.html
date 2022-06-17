@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Symbol.for()用于注册全局符号
+        let s = Symbol.for('foo')
+        console.log(Symbol.keyFor(s));
+
+        // 创建普通符号
+        let s2 = Symbol('bar');
+        // Symbol.keyFor()用于查询全局的符号
+        console.log(Symbol.keyFor(s2)); //undefined
+
+        // 传递给keyFor() 为非符合则会返回类型错误
+        // Symbol.keyFor(123)
+
+        let s3 = Symbol('foo')
+        let o = {
+            [s3]:'foo val'
+        }
+        console.log(o);
+    </script>
+</body>
+</html>

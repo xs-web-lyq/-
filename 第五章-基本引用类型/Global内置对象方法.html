@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // URI方法编码
+
+        // eval()方法,是ECMAScript语言中最强大的了,他接收一个参数,即一个要执行的ECMAScript字符串
+        eval("console.log('hi')")
+        // 相当于 
+        console.log('hi');
+
+        eval("let message = '123'")
+        // console.log(message)//ReferenceError: message is not defined
+
+        // 获取Global对象的方法
+        let global = function(){
+            return this
+        }()
+        console.log(global);
+    </script>
+</body>
+</html>

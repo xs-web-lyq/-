@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array</title>
+</head>
+<body>
+    <script>
+        // from()
+        // 字符串将会被拆分为单字符数组
+        console.log(Array.from("matt"));
+
+
+        // 可以使用from()将集合和映射转换为一个新数组
+        const m = new Map().set(1,2).set(3,4);
+        const s = new Set().add(1).add(2).add(3).add(4);
+
+        console.log(Array.from(m));
+        console.log(Array.from(s));
+
+        // Array.from()对现有的数组执行浅复制
+        const a1 = [1,2,3,4];
+        const a2 = Array.from(a1);
+        console.log(a1);
+        alert(a1 === a2); //false
+
+
+        // 可以使用任何可迭代对象
+        const iter = {
+            *[Symbol.iterator](){
+                yield 1;
+                yield 2;
+                yield 3;
+                yield 4;
+            }
+        }
+        console.log(Array.from(iter));//(4) [1, 2, 3, 4]
+
+        // Array.from(arguments,map()映射函数,指定映射函数this指向),
+        const a3 = [1,2,3,4]
+        const a4 = Array.from(a3,x=>x**2)
+        const a5 = Array.from(a3,function(x){return x**this.exponent},{exponent:2});
+        console.log(a4);//[1, 4, 9, 16]
+        console.log(a5);//[1, 4, 9, 16]            
+
+        // Array.of()可以把一组参数转换为数组
+        console.log(Array.of(1,2,3,4));//[1, 2, 3, 4]
+        console.log(Array.of(undefined));//[undefined]
+
+
+
+        // 迭代器方法:Array.keys(),values(),entries(); for  of 遍历数组
+        let a = ["foo","bar","baz","qux"]
+        for(const [key,value] of a.entries()){
+            console.log(key,value);
+        }
+
+        // 复制与填充方法 copyWithin(),fill()
+        // copyWithin(插入位置开始索引,复制位置开始索引,复制位置结束索引)
+        let ints 
+        let reset = () => ints = [0,1,2,3,4,5,6,7,8,9]
+        reset()
+
+        ints.copyWithin(5)
+        console.log(ints);//[0, 1, 2, 3, 4, 0, 1, 2, 3, 4]
+        reset()
+
+        // 从ints 中复制索引5开始的内容,插入到索引0开始的位置
+        ints.copyWithin(0,5);
+        console.log(ints); //[5, 6, 7, 8, 9, 5, 6, 7, 8, 9]
+        reset();
+
+        ints.copyWithin(0,6)
+        console.log(ints);//[6, 7, 8, 9, 4, 5, 6, 7, 8, 9]
+        reset();
+
+        ints.copyWithin(0,1,4);
+        console.log(ints);// [1, 2, 3, 3, 4, 5, 6, 7, 8, 9]
+        reset()
+        // 超过边界将忽略操作
+
+        // fill(填充值,开始填充索引,结束填充索引)
+
+        // 转换方法
+        alert(ints.valueOf()) //返回数组的字符串表示
+
+        // join(传入字符串分隔符) -->将数组以相应的字符串分隔符连接成字符串
+        // 注意:  如果数组中某一项是null或undefined,则在join() toLocaleString() toString() valueOf() 返回的结果中会以空字符串表示
+
+
+
+
+        // 排序方法 reverse()倒置,, sort() 
+        // 默认sort()为升序排列,步骤: 将每一项都调用String()方法,在比较每一项的字符串格式的大小,似乎这样并不是我们想看到的纯数字数组排序的功能
+        let values = [0,1,5,15,10]
+        values.sort()
+        console.log(values);
+        // 0: 0
+        // 1: 1
+        // 2: 10
+        // 3: 15
+        // 4: 5
+
+        // sort() 可以接收一个比较函数,用于判断那个值应该排在前面,,比较函数接收两个参数,如果第一个参数应该排在第二个参数前面,应返回负值,两参数相等返回0,第一个参数应排在第二个参数后面返回正值
+
+        // 当数组项或valueOf()返回值 ,为数值时直接使用参数一减去参数二同样可以达到效果.
+
+
+        
+    </script>
+</body>
+</html>

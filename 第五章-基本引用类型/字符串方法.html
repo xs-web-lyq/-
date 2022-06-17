@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let message = "foobarbaz";
+
+        // 一个参数，从开头匹配指定长度字符串
+        console.log(message.startsWith("foo")); //true
+        console.log(message.startsWith("baz")); //false
+        // 一个参数，从结尾匹配指定长度字符串
+        console.log(message.endsWith("foo"));  //false
+        console.log(message.endsWith("baz"));//true
+        //  一个参数，从整个字符串匹配指定长度字符串
+        console.log(message.includes("baz"));//true
+        console.log(message.includes("bar"));//true
+        console.log(message.includes("foo"));//true
+        
+        // startsWith,includes传递第二个参数,指定开始搜索的初始位置,忽略前面的位置
+        console.log(message.startsWith("foo",1)); //false
+        console.log(message.includes("bar",4));//false
+
+        // endsWith传递第二个参数,指定搜索结束的下标,向前取指定长度进行匹配
+        console.log(message.endsWith("baz",6));//false
+
+
+        // trim()方法,此方法会创建字符串的一个副本,删除前后所有的空格符,在返回结果 原字符串不受影响
+        let stringValue = "    hello world    ";
+        let trimmedStringValue = stringValue.trim();
+        console.log(stringValue);//"    hello world    "
+        console.log(trimmedStringValue); // "hello world"
+
+        // trimLeft()方法和trimRight()方法,分别删除字符串开始和末尾清理空字符
+
+
+
+        // 字符串 repeat()方法.这个方法接收一个整数参数,表示要将字符串复制多少次,然后返回拼接所有副本后的结果
+        let stringValue1 = "na  "
+        console.log(stringValue1.repeat(10)+"batman");//"na  na  na  na  na  na  na  na  na  na  batman"
+
+        // padStart()和padEnd()方法 会赋值字符串,如果小于指定长度则在字符串前/后补齐指定长度字符,默认补充空格,第一个参数指定长度,第二个参数指定补充字符
+        let stringValue2 = "foo";
+        console.log(stringValue2.padStart(8,"bar"));//"barbafoo"
+
+        // 字符串迭代解构
+        let message1 = "abc";
+        let stringIterator = message1[Symbol.iterator]();
+        console.log(stringIterator.next()); //{value: 'a', done: false}
+        console.log(stringIterator.next()); //{value: 'b', done: false}
+        console.log(stringIterator.next()); //{value: 'c', done: false}
+        console.log(stringIterator.next()); //{value: undefined, done: true}
+
+        // for - of 循环中可以通过这个歌迭代器按序访问每一个字符
+        for(const c of "abce"){
+            console.log(c);
+        }
+
+        // 因为有了迭代器,字符串就可以通过解构操作符来解构了,可以更方便地把字符串分割为字符数组
+        console.log([...message1]);//['a', 'b', 'c']
+
+
+        // 字符串大小写转换
+        // toLowerCase()和toUpperCase() 原来就有
+        // toLocaleLowerCase()和toLocaleUpperCase(); 两种方法旨在基于特定地区实现,
+
+
+        let text = "cat, bat , sat ,fat";
+        let pattern = /bat/;
+        let matches = text.match(pattern);
+        console.log(pattern);
+
+
+        // 比较字符串localeCompare()按地区区分大小写
+        
+    </script>
+</body>
+</html>
