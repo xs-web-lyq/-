@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        (function(){
+            let name = ''
+            Person = function(value){
+                name = value
+            }
+            Person.prototype.setName = function(value){
+                name = value
+
+            }
+            Person.prototype.getName = function(){
+                return name;
+            }
+        })();
+
+        let Tom = new Person("Tom")
+        console.log(Tom.getName());
+        Tom.setName('lisa')
+        console.log(Tom.getName());
+        console.log(Tom);
+        let Lisa = new Person("Lisa")
+        console.log(Lisa.getName());
+        Lisa.setName('Tom')
+        console.log(Lisa.getName());
+        console.log(Lisa);
+    </script>
+</body>
+</html>
