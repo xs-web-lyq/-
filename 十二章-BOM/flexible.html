@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        (function flexible(window,document){
+            // 获取html的根元素
+            let docEl = document.documentElement
+            // dpr 物理像素比
+            let dpr = window.devicePixelRatio || 1;
+
+            // adjust body font size 设置我们的body字体大小
+            function setBodyFontSize(){
+                // 如果页面中有body这个元素，就设置body的字体大小
+                if(document.body){
+                    document.body.style.fontSize = (12 * dpr) + 'px'
+                    console.log(12 * dpr);
+                }else {
+                    // 如果页面中没有body这个元素，则等着页面中主要的DOM元素加载完毕再去设置body
+                    // 的字体大小
+                    document.addEventListener('DOMContentLoaded',setBodyFontSize)
+                }
+            }
+
+            function setRemUnit(){
+                let rem = docEl.clientWidth / 10
+                docEl.style.fontSize = rem + 'px'
+            }
+            setRemUnit()
+
+            // 当页面尺寸发生变化时
+            window.addEventListener('resize',setRemUnit)
+            // pageshow是我们重新加载页面触发的事件
+            window.addEventListener('pageshow',function(e){
+                // e.persisted返回true 就是说如果这个页面是从缓存过来的页面，也需要重新计算一次rem
+                if(e.persisted){
+                    setRemUnit();
+                }
+            })
+        }(window,document))
+    </script>
+</body>
+</html>

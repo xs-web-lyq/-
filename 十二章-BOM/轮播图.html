@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .box {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            border: 1px solid #000;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+
+        .box .left,
+        .box .right {
+            display: none;
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 20px;
+            top: 50%;
+            margin-top: -15px;
+            text-align: center;
+            border: 1px solid #000;
+            cursor: pointer;
+            z-index: 99;
+        }
+
+        .box .left {
+            left: 0;
+        }
+
+        .box .right {
+            right: 0;
+        }
+
+        .box .swiper {
+            width: 500%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .box .swiper li {
+            float: left;
+        }
+
+        .box .swiper li img {
+            width: 300px;
+            height: 400px;
+        }
+
+        .slot {
+
+            position: absolute;
+            width: 100px;
+            height: 30px;
+            bottom: 20px;
+            left: 50%;
+            margin-left: -50px;
+            line-height: 30px;
+            border-radius: 15px;
+            border: 1px solid #000;
+        }
+
+        .slot li {
+            float: left;
+            width: 20px;
+            margin-top: 5px;
+            margin-left: 2px;
+            background-color: white;
+            height: 20px;
+            border: 1px solid #000;
+            border-radius: 50%;
+        }
+
+        .slot li.active {
+            background-color: red;
+        }
+    </style>
+    <script src="animate.js"></script>
+</head>
+
+<body>
+    <div class="box">
+        <div class="left">&lt;</div>
+        <div class="right">&gt;</div>
+        <ul class="swiper">
+            <li><a href="#"><img src="list.jpg" alt="" class="focus"></a></li>
+            <li><a href="#"><img src="list.jpg" alt=""></a></li>
+            <li><a href="#"><img src="list.jpg" alt=""></a></li>
+            <li><a href="#"><img src="list.jpg" alt=""></a></li>
+          
+        </ul>
+        <ul class="slot">
+
+        </ul>
+    </div>
+    <script>
+        let left1 = document.querySelector('.left')
+        let right1 = document.querySelector('.right')
+        let box = document.querySelector('.box')
+
+
+
+        box.addEventListener('mouseover', function () {
+            left1.style.display = 'block'
+            right1.style.display = 'block'
+        })
+        box.addEventListener('mouseout', function () {
+            left1.style.display = 'none'
+            right1.style.display = 'none'
+        })
+
+
+
+        let focus = document.querySelector('.focus')
+        let swipers = document.querySelector('.swiper')
+        let imgWidth = focus.offsetWidth;
+        // 小圆点
+        let ul = document.querySelector('.slot')
+
+        for (let i = 0; i < swipers.children.length; i++) {
+            let li = document.createElement('li');
+            // 记录当前小圆圈的索引， 通过自定义属性制作
+            li.setAttribute('index', i);
+            console.log(li.getAttribute('index'));
+            ul.appendChild(li);
+
+            // 小圆圈排他思想
+            li.addEventListener('click', function () {
+                for (let i = 0; i < ul.children.length ; i++) {
+                    ul.children[i].className = '';
+                }
+                let index = this.getAttribute('index');
+                num = index;
+                circle = index;
+                this.className = 'active'
+               
+                console.log(imgWidth * index);
+                animate(swipers, - index * imgWidth)
+            })
+        }
+        ul.children[0].className = 'active';
+
+        // 克隆第一张图片（li）放在swiper中，最后
+        let first = swipers.children[0].cloneNode(true);
+        swipers.appendChild(first);
+
+
+
+
+        let num = 0
+        let circle = 0
+        right1.addEventListener('click',function(){
+            // 如果走到了最后复制的一张图片，此时我们的ul要快速复原left为0
+            if(num == swipers.children.length - 1){
+                swipers.style.left = 0;
+                num = 0;
+            }
+            console.log(num);
+            num++;
+            animate(swipers, -num * imgWidth)
+
+            //小圆圈跟随
+            circle++
+            for(let i = 0 ; i < ul.children.length;i++){
+                ul.children[i].className = '';
+            }
+            if(circle == ul.children.length){
+                circle = 0;
+            }
+            ul.children[circle].className = 'active';
+        })
+    </script>
+</body>
+
+</html>
