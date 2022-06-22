@@ -33,7 +33,7 @@
             background-color: yellow;
         }
         .footer {
-            height:100px;
+            height:500px;
             margin-top:10px;
             background-color: blue;
         }
@@ -77,9 +77,6 @@
     let boxTop = box.offsetTop - bannerTop;
     let boxTop1 = box.offsetTop;
     let bodyTop = body1.offsetTop
-    console.log(bannerTop);
-    console.log(boxTop);
-    console.log(bodyTop);
 
 
     // 添加滚动事件
@@ -99,6 +96,24 @@
             box.style.top =  boxTop1 + 'px'
         }
     })
+    to.addEventListener('click',function(){
+        console.log(1);
+        animate(window,0)
+    })
+
+    function animate(obj,target,callback){
+    clearInterval(obj.timer);
+    obj.timer = setInterval(function(){
+        let step = (target - window.pageYOffset) / 10 
+        step = step > 0 ? Math.ceil(step) : Math.floor(step);
+        if(window.pageYOffset == target){
+            clearInterval(obj.timer);
+            callback && callback();
+        }
+        window.scroll(0,window.pageYOffset + step); 
+
+    },30)
+}
 
     // 主要用法：
     // 1.offset系列经常用于获取元素位置 offsetLeft, offsetTop

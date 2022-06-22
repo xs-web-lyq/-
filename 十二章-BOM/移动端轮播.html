@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .clearfix::after,
+        .clearfix::before {
+            content: '';
+            display: block;
+        }
+
+        .clearfix {
+            clear: both;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        div {
+            box-sizing: border-box;
+        }
+
+        .focus {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .focus ul {
+            width: 500%;
+            margin-left: -100%;
+        }
+
+        .focus ul li {
+            float: left;
+            width: 20%;
+        }
+
+        .focus img {
+            width: 100%;
+        }
+
+        ol {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        ol li {
+            float: left;
+            width: 10px;
+            height: 6px;
+            margin: 0 10px;
+            background-color: red;
+        }
+
+        ol li.current {
+            width: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="focus">
+        <ul class="clearfix">
+            <li><img src="O1CN018vKAqi1Fp4evQEFvw_!!6000000000535-2-octopus.png" alt=""></li>
+            <li><img src="O1CN01EyCfCj1lMHSmmBtnp_!!6000000004804-2-octopus.png" alt=""></li>
+            <li><img src="O1CN01TDwdp71eM5zTCFuqM_!!6000000003856-0-octopus.jpg" alt=""></li>
+            <li><img src="O1CN018vKAqi1Fp4evQEFvw_!!6000000000535-2-octopus.png" alt=""></li>
+            <li><img src="O1CN01EyCfCj1lMHSmmBtnp_!!6000000004804-2-octopus.png" alt=""></li>
+        </ul>
+        <ol>
+            <li class="current"></li>
+            <li></li>
+            <li></li>
+        </ol>
+    </div>
+    <script>
+        let focus = document.querySelector('.focus');
+        let ul = document.querySelector('ul');
+        let focusWidth = focus.offsetWidth;
+        let index = 0;
+        let timer = setInterval(function () {
+                index++;
+                ul.style.transition = "all .3s"
+                ul.style.transform = `translateX(${-index * focusWidth}px)`
+        }, 2000);
+        ul.addEventListener('transitionend',function(){
+            if(index == 3){
+                index = 0;
+                ul.style.transition = 'none';
+                ul.style.transform = `translateX(${-index * focusWidth}px)`
+            }
+        })
+
+    </script>
+</body>
+
+</html>

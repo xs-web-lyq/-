@@ -106,7 +106,7 @@
             <li><a href="#"><img src="list.jpg" alt=""></a></li>
             <li><a href="#"><img src="list.jpg" alt=""></a></li>
             <li><a href="#"><img src="list.jpg" alt=""></a></li>
-          
+
         </ul>
         <ul class="slot">
 
@@ -122,10 +122,15 @@
         box.addEventListener('mouseover', function () {
             left1.style.display = 'block'
             right1.style.display = 'block'
+            clearInterval(timer);
+            timer = null;
         })
         box.addEventListener('mouseout', function () {
             left1.style.display = 'none'
             right1.style.display = 'none'
+            timer = setInterval(function () {
+                right1.click();
+            }, 2000)
         })
 
 
@@ -145,14 +150,14 @@
 
             // 小圆圈排他思想
             li.addEventListener('click', function () {
-                for (let i = 0; i < ul.children.length ; i++) {
+                for (let i = 0; i < ul.children.length; i++) {
                     ul.children[i].className = '';
                 }
                 let index = this.getAttribute('index');
                 num = index;
                 circle = index;
                 this.className = 'active'
-               
+
                 console.log(imgWidth * index);
                 animate(swipers, - index * imgWidth)
             })
@@ -168,26 +173,62 @@
 
         let num = 0
         let circle = 0
-        right1.addEventListener('click',function(){
-            // 如果走到了最后复制的一张图片，此时我们的ul要快速复原left为0
-            if(num == swipers.children.length - 1){
-                swipers.style.left = 0;
-                num = 0;
-            }
-            console.log(num);
-            num++;
-            animate(swipers, -num * imgWidth)
+        let flag = true;
 
-            //小圆圈跟随
-            circle++
-            for(let i = 0 ; i < ul.children.length;i++){
-                ul.children[i].className = '';
+        right1.addEventListener('click', function () {
+            // 如果走到了最后复制的一张图片，此时我们的ul要快速复原left为0
+            if (flag) {
+                flag = false;
+                if (num == swipers.children.length - 1) {
+                    swipers.style.left = 0;
+                    num = 0;
+                }
+                console.log(num);
+                num++;
+                animate(swipers, -num * imgWidth, function () {
+                    flag = true;
+                })
+
+                //小圆圈跟随
+                circle++
+                for (let i = 0; i < ul.children.length; i++) {
+                    ul.children[i].className = '';
+                }
+                if (circle == ul.children.length) {
+                    circle = 0;
+                }
+                ul.children[circle].className = 'active';
             }
-            if(circle == ul.children.length){
-                circle = 0;
-            }
-            ul.children[circle].className = 'active';
         })
+        left1.addEventListener('click', function () {
+            if (flag) {
+                flag = false;
+                // 如果走到了最后复制的一张图片，此时我们的ul要快速复原left为0
+                if (num == 0) {
+                    swipers.style.left = -(swipers.children.length - 1) * imgWidth + 'px';
+                    num = swipers.children.length - 1;
+                }
+
+                num--;
+                animate(swipers, -num * imgWidth,function(){
+                    flag = true
+                })
+
+                //小圆圈跟随
+                circle--
+                for (let i = 0; i < ul.children.length; i++) {
+                    ul.children[i].className = '';
+                }
+                if (circle < 0) {
+                    circle = ul.children.length - 1;
+                }
+                ul.children[circle].className = 'active';
+            }
+        })
+        var timer = setInterval(function () {
+            // 手动触发点击事件
+            right1.click();
+        }, 2000)
     </script>
 </body>
 
