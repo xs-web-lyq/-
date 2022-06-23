@@ -55,16 +55,18 @@
             right: 10px;
         }
 
-        ol li {
+        .focus ol li {
             float: left;
-            width: 10px;
-            height: 6px;
+            width: 15px;
+            height: 10px;
             margin: 0 10px;
-            background-color: red;
+            border-radius: 5px;
+            background-color: white;
+            transition: all .3s;
         }
 
-        ol li.current {
-            width: 20px;
+        .focus ol li.current {
+            width: 30px;
         }
     </style>
 </head>
@@ -88,20 +90,71 @@
         let focus = document.querySelector('.focus');
         let ul = document.querySelector('ul');
         let focusWidth = focus.offsetWidth;
+        let ol = focus.children[1];
+        // console.log(ol);
         let index = 0;
+        let flog = false;
         let timer = setInterval(function () {
-                index++;
-                ul.style.transition = "all .3s"
-                ul.style.transform = `translateX(${-index * focusWidth}px)`
+            index++;
+            ul.style.transition = "all .3s"
+            ul.style.transform = `translateX(${-index * focusWidth}px)`
         }, 2000);
-        ul.addEventListener('transitionend',function(){
-            if(index == 3){
+        ul.addEventListener('transitionend', function () {
+            if (index >= 3) {
                 index = 0;
                 ul.style.transition = 'none';
                 ul.style.transform = `translateX(${-index * focusWidth}px)`
             }
+            if (index < 0) {
+                index = 2;
+                ul.style.transition = 'none';
+                ul.style.transform = `translateX(${-index * focusWidth}px)`
+            }
+
+            // 小圆点跟随
+            // 首先去除当前元素类名current
+            ol.querySelector('.current').classList.remove('current');
+            ol.children[index].classList.add('current')
         })
 
+        // 手动滑动轮播图
+        // 触摸元素 touchstart 获取手指初始坐标
+        let startX = 0;
+        let moveX = 0;
+        ul.addEventListener('touchstart', function (e) {
+            startX = e.targetTouches[0].pageX;
+            clearInterval(timer)
+        })
+        ul.addEventListener('touchmove', function (e) {
+            flog = true;
+            moveX = e.targetTouches[0].pageX - startX;
+            ul.style.transition = 'none';
+            ul.style.transform = `translateX(${-index * focusWidth + moveX}px)`
+            e.preventDefault()
+        })
+        ul.addEventListener('touchend', function (e) {
+            if (flog) {
+                if (Math.abs(moveX) > 50) {
+                    if (moveX > 0) {
+                        index--
+                    } else {
+                        index++
+                    }
+                    ul.style.transition = "all .3s"
+                    ul.style.transform = `translateX(${-index * focusWidth}px)`
+                } else {
+                    ul.style.transition = "all .3s"
+                    ul.style.transform = `translateX(${-index * focusWidth}px)`
+                }
+            }
+
+            clearInterval(timer);
+            timer = setInterval(function () {
+                index++;
+                ul.style.transition = "all .3s"
+                ul.style.transform = `translateX(${-index * focusWidth}px)`
+            }, 2000);
+        })
     </script>
 </body>
 
