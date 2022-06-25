@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin:0;
+            padding:0;
+
+        }
+        table {
+            width:500px;
+            margin:100px auto;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        th,td {
+            border: 1px solid #000;
+        }
+        thead hr {
+            height:40px;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>成绩</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <script>
+        let data = [
+            {
+                name:'liu',
+                age:18,
+                score:99
+            },
+            {
+                name:'yong',
+                age:19,
+                score:100
+            },
+            {
+                name:'sun',
+                age:21,
+                score:99
+            }
+        ]
+        let tbody = document.querySelector('tbody');
+        for(let i = 0 ; i < data.length; i++){
+            let tr = document.createElement('tr');
+            tbody.appendChild(tr);
+            for(let key in data[i]){
+                let td = document.createElement('td');
+                td.innerHTML = `${data[i][key]}`
+                tr.appendChild(td);
+            }
+            let td = document.createElement('td');
+            td.innerHTML = '<a href = "javascript:;">删除</a>'
+            tr.appendChild(td)
+        }
+        let as = document.querySelectorAll('a');
+        for(let i = 0 ; i < as.length; i++){
+            as[i].addEventListener('click',function(){
+                tbody.removeChild(this.parentNode.parentNode)
+            })
+        }
+    </script>
+</body>
+</html>
